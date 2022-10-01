@@ -18,7 +18,7 @@ The [`dyn(obj)`](./demo/js/index.js) syntax is AWESOME. It is very intuitive, bu
 
 #### Proposed solution
 
-Teardown logic can be gathered in the return value of `dyn()`. An alternative is to automatically remove teardown logic by using either custom elements like `<dyn-div>` which have access to [HTMLElement lifecycle events](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks) or using [hacks](http://www.backalleycoder.com/2012/04/25/i-want-a-damnodeinserted/) like `animationstart` to derive it from native HTML elements.
+Teardown logic can be gathered in the return value of `dyn()`. An alternative is to automatically run teardown logic by using either custom elements like `<dyn-div>` which have access to [HTMLElement lifecycle events](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks) or using [hacks](http://www.backalleycoder.com/2012/04/25/i-want-a-damnodeinserted/) like `animationstart` to derive it from native HTML elements.
 
 In this sandbox, even reactive arguments were supported. It felt like a breakthrough to use them until combining two reactive arguments felt off. If you want to inject two reactive parameters and need them settled, you'd need to merge them beforehand and pass them as `fn(...arguments)`, which will require some
 
