@@ -1,6 +1,7 @@
 import { Var } from '../../lib/dist/var/var.js'
 import { dyn } from '../../lib/dist/dyn/dyn.js'
 import { merge } from '../../lib/dist/var/merge.js'
+import { settle } from '../../lib/dist/var/settle.js'
 
 let i = 0
 const counter = new Var(i)
@@ -16,6 +17,9 @@ setInterval(() => {
   textColor.set(color)
   attrName.set(attrNames[i % attrNames.length])
   style.set(`color: ${color}`)
+  const mergedAttrNSize = merge(attrName, counter).fork(settle)
+  const settledAttr = mergedAttrNSize.fork(([attr, size]) => attr)
+  const settledSize = mergedAttrNSize.fork(([attr, size]) => size)
 }, 1000)
 
 

@@ -45,6 +45,12 @@ export class Var<T> {
     }
   }
 
+  fork<U>(mutate: (v: T) => U): Var<U> {
+    const fork = new Var<U>();
+    this.hook((v) => fork.set(mutate(v)));
+    return fork;
+  }
+
   get(noNil: true): Promise<T>;
   get(noNil: false): T | Nil;
   get(noNil = true) {
