@@ -1,4 +1,4 @@
-import { nil, Nil } from "./symbols.js";
+import { nil, Nil } from "../util/symbols.js";
 
 type UnhookFn = () => void;
 type ActionFn<T> = (value: T, hook: Hook<T>) => void;
@@ -11,19 +11,20 @@ export class Var<T> {
   #value: T | Nil;
   #hooks = new Set<Hook<T>>();
   #next: Promise<T> | null = null;
+  public onUnhook?: UnhookFn | null = null;
 
   constructor(value: T | Nil = nil) {
     this.#value = value;
   }
 
-  hook(
-    action: ActionFn<T>,
-    { once = false, injectCache = true } = {}
-  ): Hook<T> {
+  hook(action: ActionFn<T>, { once = false, inject = true } = {}): Hook<T> {
     let hook: Hook<T>;
     hook = {
       action,
       unhook: () => {
+        if (this.onUnhook) {
+          this.onUnhook();
+        }
         this.#hooks.delete(hook);
       },
     };
@@ -31,7 +32,7 @@ export class Var<T> {
     if (once) {
       this.next().then(hook.unhook);
     }
-    if (injectCache && this.#value !== nil) {
+    if (inject && this.#value !== nil) {
       action(this.#value, hook);
     }
     return hook;

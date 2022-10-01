@@ -1,1 +1,1 @@
-export { dyn } from "./util/dyn.js";
+export { dyn } from "./dyn/dyn.js";
