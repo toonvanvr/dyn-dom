@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "npx tsc --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.23",
+    "ts-toolbelt": "^9.6.0",
+    "typescript": "^4.8.4"
+  }
+}
